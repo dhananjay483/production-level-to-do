@@ -98,7 +98,7 @@ export const updateTodos = (req,res) =>{
     if(!isCompleted){
         return res.status(401).json({message : "isCompleted is required", success : false})
     }
-    
+
     // all details fetch done then only 
     const todo = db.todos.find(t => t.id ===id); // check if any id will match or not
     if(!todo){
@@ -129,7 +129,7 @@ export const deleteTodos = (req,res) =>{
             message : "ID Not Found"
         });
     }
-    // if id found
+    // if id found 
     const deleted = db.todos.splice(index,1)[0];
     writeDB(db); //save updated data from db.json
 
