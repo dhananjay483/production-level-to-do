@@ -1,0 +1,53 @@
+{
+  "todos": [
+    {
+      "id": "e7bffffd-5a68-4002-ad8b-2110cfa467b4",
+      "title": "React Todo",
+      "isImportant": "High",
+      "isCompleted": false,
+      "createdAt": "4/10/2025, 5:53:38 pm",
+      "updatedAt": "4/10/2025, 7:48:17 pm"
+    },
+    {
+      "id": "e257f83f-faa2-4e53-a3bc-57cde8d87e43",
+      "title": " Frontend integration",
+      "isImportant": "High",
+      "isCompleted": false,
+      "createdAt": "4/10/2025, 6:05:50 pm",
+      "updatedAt": "4/10/2025, 6:05:50 pm"
+    },
+    {
+      "id": "d1893671-559d-480e-8116-d3f63e6063a9",
+      "title": " Frontend integration",
+      "isImportant": "High",
+      "isCompleted": false,
+      "createdAt": "4/10/2025, 6:06:00 pm",
+      "updatedAt": "4/10/2025, 6:06:00 pm"
+    },
+    {
+      "id": "e8e2a8ce-d604-423b-81af-412b16188852",
+      "title": " React integration",
+      "isImportant": "High",
+      "isCompleted": false,
+      "createdAt": "4/10/2025, 6:08:13 pm",
+      "updatedAt": "4/10/2025, 6:08:13 pm"
+    },
+    {
+      "id": "0c30e5b6-4797-4d78-9a6f-54ce3db5a09d",
+      "title": "Update TODo",
+      "isImportant": "High",
+      "isCompleted": false,
+      "createdAt": "4/10/2025, 6:17:52 pm",
+      "updatedAt": "4/10/2025, 6:59:36 pm"
+    },
+    {
+      "id": "870846b0-48a6-42f7-9c83-c35beb4ca65a",
+      "title": " API integration",
+      "isImportant": "High",
+      "isCompleted": false,
+      "createdAt": "4/10/2025, 8:05:57 pm",
+      "updatedAt": "4/10/2025, 8:05:57 pm"
+    }
+  ],
+  "err": {}
+}
