@@ -9,7 +9,7 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT;
 
-// Middlewares
+// Middlewares part
 app.use(cors());
 app.use(bodyParser.json());
 
