@@ -14,7 +14,7 @@ console.log(db_path);
 // Read db.json
 function readDB (){
     try {
-        const data = fs.readFileSync(db_path , "utf-8");
+        const data = fs.readFileSync(db_path , "utf-8"); 
         return JSON.parse(data);
     } catch (err) {
         console.log("Error reading in db.json");
@@ -24,7 +24,7 @@ function readDB (){
 //write db.json
 function writeDB(data){
   try{
-      fs.writeFileSync(db_path,JSON.stringify(data,null,2),"utf-8");
+      fs.writeFileSync(db_path,JSON.stringify(data,null,2),"utf-8"); // save the file in javascript object
       console.log("data base update successfully...");
   }
     catch(err){
@@ -61,6 +61,9 @@ export const addTodos = (req,res)=>{
     const {title , isImportant} = req.body;
     if(!title){
         return res.status(404).json({message:"Title is required"});
+    }
+    if(!isImportant){
+        return res.status(403).json({message:"IsImportant is required!"});
     }
     const now = new Date().toLocaleString();
     // new todo create
@@ -132,7 +135,7 @@ export const deleteTodos = (req,res) =>{
     // if id found 
     const deleted = db.todos.splice(index,1)[0];
     writeDB(db); //save updated data from db.json
-
+    
      res.status(202).json({
         message : "TO-DO Deleted Successfully",
         success : true,
