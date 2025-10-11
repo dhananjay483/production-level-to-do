@@ -35,10 +35,11 @@ function writeDB(data){
 // get all the task
 export const getTodos = (req,res)=>{
     const db = readDB(); // load from db.json()
-    res.json({
-        message : "Data Fetched Successfully!",
-        todos : db.todos,
-    });
+    // res.json({
+    //     message : "Data Fetched Successfully!",
+    //     todos : db.todos,
+    // });
+    res.json(db.todos || []);
 }
 
 // to do find by id
@@ -78,49 +79,69 @@ export const addTodos = (req,res)=>{
     db.todos.push(newTodo); // push my new to-do data into my existing database
     writeDB(db); // save updated data into database --> db.json()
 
-    res.status(202).json({
-        message:"TO-DO-Item Added Successfully",
-        success : true,
-        newTodo
-    });
+    // res.status(202).json({
+    //     message:"TO-DO-Item Added Successfully",
+    //     success : true,
+    //     newTodo
+    // });
+     res.status(201).json(newTodo);
 };
 
 // Update the to-do application ---> 
-export const updateTodos = (req,res) =>{
-    // load the data from db.json();
-    const db = readDB();
-    const {id} = req.params; // req the todo id which could be update 
-    const {title , isImportant , isCompleted} = req.body; // fetch details
-    // if details will not have
-    if(!title){
-        return res.status(401).json({message : "Title is required", success : false})
-    }
-    if(!isImportant){
-        return res.status(401).json({message : "IsImportant is required", success : false})
-    }
-    if(!isCompleted){
-        return res.status(401).json({message : "isCompleted is required", success : false})
-    }
+// export const updateTodos = (req,res) =>{
+//     // load the data from db.json();
+//     const db = readDB();
+//     const {id} = req.params; // req the todo id which could be update 
+//     const {title , isImportant , isCompleted} = req.body; // fetch details
+//     // if details will not have
+//     if(!title){
+//         return res.status(401).json({message : "Title is required", success : false})
+//     }
+//     if(!isImportant){
+//         return res.status(401).json({message : "IsImportant is required", success : false})
+//     }
+//     if(!isCompleted){
+//         return res.status(401).json({message : "isCompleted is required", success : false})
+//     }
 
-    // all details fetch done then only 
-    const todo = db.todos.find(t => t.id ===id); // check if any id will match or not
-    if(!todo){
-        return res.status(404).json({message:"To-Do Not Found" , success : false});
-    }
-    // add all fields
-    if(title !== undefined) todo.title = title;
-    if(isImportant !== undefined) todo.isImportant = isImportant;
-    if(isCompleted !== undefined) todo.isCompleted = isCompleted;
-    // update date
-    todo.updatedAt = new Date().toLocaleString();
-    writeDB(db); // save the updated data into db.json()
-    res.status(202).json({
-        message : "TO-DO updated Successfully ",
-        success : true,
-        todo
-    });
+//     // all details fetch done then only 
+//     const todo = db.todos.find(t => t.id ===id); // check if any id will match or not
+//     if(!todo){
+//         return res.status(404).json({message:"To-Do Not Found" , success : false});
+//     }
+//     // add all fields
+//     if(title !== undefined) todo.title = title;
+//     if(isImportant !== undefined) todo.isImportant = isImportant;
+//     if(isCompleted !== undefined) todo.isCompleted = isCompleted;
+//     // update date
+//     todo.updatedAt = new Date().toLocaleString();
+//     writeDB(db); // save the updated data into db.json()
+//     // res.status(202).json({
+//     //     message : "TO-DO updated Successfully ",
+//     //     success : true,
+//     //     todo
+//     // });
+//     res.status(200).json(todo);
+// };
+
+// update to do
+export const updateTodos = (req, res) => {
+  const db = readDB();
+  const { id } = req.params;
+  const { title, isImportant, isCompleted } = req.body;
+
+  const todo = db.todos.find(t => t.id === id);
+  if (!todo) return res.status(404).json({ message: "Todo Id not found" });
+
+  if (title !== undefined) todo.title = title;
+  if (isImportant !== undefined) todo.isImportant = isImportant;
+  if (isCompleted !== undefined) todo.isCompleted = isCompleted;
+
+  todo.updatedAt = new Date().toLocaleString();
+  writeDB(db);
+
+  res.status(200).json(todo); // return JSON
 };
-
 // delete to do
 export const deleteTodos = (req,res) =>{
     const db = readDB(); // load the data from db.json()
@@ -133,9 +154,9 @@ export const deleteTodos = (req,res) =>{
         });
     }
     // if id found 
-    const deleted = db.todos.splice(index,1)[0];
-    writeDB(db); //save updated data from db.json
-    
+    const deleted = db.todos.splice(index,1)[0]; // deleted first element of the todo array
+    writeDB(db); // save updated data to the db.json file
+
      res.status(202).json({
         message : "TO-DO Deleted Successfully",
         success : true,
