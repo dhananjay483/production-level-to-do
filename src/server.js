@@ -4,6 +4,7 @@ import cors from 'cors';
 import taskRoutes from './route/routes.js';
 import bodyParser from 'body-parser';
 import connectDB from './config/db.js'
+import errorHandler from './Error/ErrorHandler.js';
 dotenv.config();
 
 const app = express();
@@ -19,6 +20,7 @@ app.use(cors({
   credentials : true
 }));
 app.use(bodyParser.json());
+app.use(errorHandler);
 
 // default router
 app.get('/', (req, res) => {
