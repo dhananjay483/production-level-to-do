@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 
 const todoSchema = new mongoose.Schema({
     title:{
-        type : string,
+        type : String,
         required : true,
         trim : true
     },
@@ -16,7 +16,7 @@ const todoSchema = new mongoose.Schema({
         enum : ['Low','Medium','High'],
         default : 'Low',
     },
-    {timestamps : true},
+    timestamps : true,
 })
 const Task = mongoose.model('Task',todoSchema);
 export default Task;
