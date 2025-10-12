@@ -1,22 +1,26 @@
-// here we define our mongoDB model for 
 import mongoose from "mongoose";
 
-const todoSchema = new mongoose.Schema({
-    title:{
-        type : String,
-        required : true,
-        trim : true
+const TaskSchema = new mongoose.Schema(
+  {
+    title: {
+      type: String,
+      required: true,
+      trim: true,
     },
-    isCompleted : {
-        type : Boolean,
-        default: false,
+    isImportant: {
+      type: String,
+      enum: ["Low", "Medium", "High"],
+      default: "Low",
     },
-    isImportant : {
-        type : Boolean,
-        enum : ['Low','Medium','High'],
-        default : 'Low',
+    isCompleted: {
+      type: Boolean,
+      default: false,
     },
-    timestamps : true,
-})
-const Task = mongoose.model('Task',todoSchema);
+  },
+  {
+    timestamps: true, 
+  }
+);
+
+const Task = mongoose.model("Task", TaskSchema);
 export default Task;

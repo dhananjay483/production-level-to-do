@@ -1,5 +1,5 @@
 // here we validate our define datbase model or validate our schema
-import yup from 'yup';
+import *as yup from 'yup';
 
 // validate our defined schema model 
 export const createTaskSchema = yup.object({
@@ -10,7 +10,7 @@ export const createTaskSchema = yup.object({
     .required('Title is required'),
 
     isImportant : yup
-    .boolean()
+    .string()
     .oneOf(['Low','Medium','High'] , 'please select your task importance')
     .default('Low'),
 
@@ -27,12 +27,13 @@ export const updateTaskSchema = yup.object({
     .required('Title is required'),
 
     isImportant : yup
-    .boolean()
+    .string()
     .oneOf(['Low','Medium','High'] , 'Please select you task importance!'),
 
     isCompleted : yup
     .boolean()
-}).min(1 , 'At-least you should provide during update')
+    // .min(1 , 'At-least you should provide during update')
+})
 
 export const searchTaskSchema = yup.object({
      title : yup
