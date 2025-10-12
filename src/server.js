@@ -28,7 +28,7 @@ app.get('/', (req, res) => {
 });
 
 // define all Tasks route 
-app.use("/api", taskRoutes);
+app.use("/api/todos", taskRoutes);
 
 app.listen(port, () => {
   console.log(` server is running on the port : ${port}`);

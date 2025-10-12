@@ -181,6 +181,23 @@ export default class ToDoOperations {
       next(err)
     }
   }
+  /* Here we want to get to do through id*/
+  getTodosById = async(req,res,next) => {
+    try {
+        const id = req.params.id;
+    if(!id){
+        return res.status(400).json({message : "id is required",success:false})
+    }
+    const todo = await Task.findById(id);
+    if(!todo){
+        return res.status(404).json({message : "To Do Task Not Found!!",success:false})
+    }
+    res.status(202).json({message : "Data Fetched By Id Successfully✅✅",success : true,  todo:todo});
+    } catch (error) {
+        console.log(`Failed to fetch to do through id ${error.message}`);
+        next(error);
+    }
+  }
   /* Here i want to write my create todo functionality*/
   createTodo = async (req, res, next) => {
     try {
@@ -230,7 +247,7 @@ export default class ToDoOperations {
   deleteTodos = async (req, res, next) => {
     try {
       // i want to fetch id from my body
-      const { id } = req.body
+      const id  = req.params.id;
       if (!id) {
         return res.status(400).json({ message: 'Id is Required' })
       }
@@ -240,7 +257,7 @@ export default class ToDoOperations {
       }
       res
         .status(200)
-        .json({ message: 'To Do Deleted Successful', success: true })
+        .json({ message: 'To Do Deleted Successful ✅✅', success: true })
     } catch (err) {
       console.log('Failed to delete todo ${err.message}')
       next(err)
