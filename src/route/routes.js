@@ -16,7 +16,7 @@ router.post('/tasks',todoRequestValidation.validateCreateRequest,
     todoRequestOperatins.createTodo
 ); // here post my todo task and as well as validation
 
-router.put('/tasks',todoRequestValidation.validateupdateRequest,
+router.put('/tasks/:id',todoRequestValidation.validateupdateRequest,
     todoRequestOperatins.updateTodo
 ); // here i want to update my existing todo and also check my validation
 

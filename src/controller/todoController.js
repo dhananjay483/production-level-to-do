@@ -218,7 +218,7 @@ export default class ToDoOperations {
     try {
       // we need an and edittodo details during updating time
       const edittodo = req.body
-      const id = req.body.id
+      const id = req.params.id;
       if (!id) {
         return res.status(400).json({ message: 'Task Id is Required' })
       }
