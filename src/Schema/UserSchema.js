@@ -2,6 +2,7 @@
 import yup from 'yup';
 
 export const authSignupUserSchema = yup.object({
+
     username : yup
     .string('User name must be string type')
     .trim()
@@ -21,9 +22,11 @@ export const authSignupUserSchema = yup.object({
     .string('role is string type!!')
     .oneOf(['user','admin'], 'provide your role')
     .required('role is required')
+
 });
 
 export const authLoginUserSchema = yup.object({
+
     email : yup 
      .string('email should be a string type')
     .required('please write your registered eamil'),
@@ -32,4 +35,17 @@ export const authLoginUserSchema = yup.object({
     .string('password should be a string type')
     .min(8,'password length must be 8 character')
     .required('please write a password which is register password'),
+
+});
+export const updatePasswordSchema = yup.object({
+    
+     email : yup 
+     .string('email should be a string type')
+    .required('please write your registered eamil'),
+
+    password : yup 
+    .string('password should be a string type')
+    .min(8,'password length must be 8 character')
+    .required('please write a password which is register password'),
+
 });

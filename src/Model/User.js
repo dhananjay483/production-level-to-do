@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
  
-// Here we define our user model
+// Here we define our user model details
 const userSchema = new mongoose.Schema({
     username : {
         type : String,
@@ -23,13 +23,13 @@ const userSchema = new mongoose.Schema({
         required : true,
         enum : ['user','admin']
     },
-    // otp : {
-    //     type : String
-    // },
-    // isVerified : {
-    //     type : Boolean,
-    //     default : false
-    // },
+    otp : {
+        type : String
+    },
+    isVerified : {
+        type : Boolean,
+        default : false
+    },
     timestamps : true
 });
 const User = mongoose.model('User',userSchema);
