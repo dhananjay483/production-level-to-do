@@ -1,0 +1,58 @@
+   +-------------------+
+   |  User requests OTP |
+   |  (email)           |
+   +--------+----------+
+            |
+            v
+   +-------------------+
+   | Generate OTP       |
+   | (6 digits)         |
+   +--------+----------+
+            |
+            v
+   +-------------------+
+   | Save OTP in DB     |
+   | with expiration    |
+   +--------+----------+
+            |
+            v
+   +-------------------+
+   | Send OTP via Email |
+   +--------+----------+
+            |
+            v
+   +----------------------------+
+   | User enters OTP on front-end|
+   +--------+-------------------+
+            |
+            v
+   +-----------------------------+
+   | Verify OTP:                 |
+   | 1. Check DB for {email, OTP}|
+   | 2. Check expiration time    |
+   +--------+-------------------+
+            |
+        +---+---+
+        |       |
+   Valid OTP   Invalid OTP
+        |       |
+        v       v
++---------------+       +------------------+
+| Allow Sign-Up |       | Reject, ask      |
+| or Update     |       | user to retry OTP|
+| Password      |       +------------------+
++---------------+
+        |
+        v
++-----------------------------+
+| Create user (sign-up)       |
+| OR update user password     |
+| in MongoDB                  |
++-----------------------------+
+        |
+        v
++-----------------------------+
+| Respond to user:            |
+| "Account created" OR        |
+| "Password updated"          |
++-----------------------------+

@@ -13,7 +13,7 @@ import OTP from '../Model/Otp.js';
 import otpGenerator from 'otp-generator';
 import  mailSender from  '../utility/mailSender.js'; // for mailsender we use nodemailer
 
-export default async sendOtp(req , res , next) =>{
+export default async function sendOtp(req , res , next) =>{
     try {
         // fetch you email from body
         const email = req.body.email;
@@ -35,7 +35,8 @@ export default async sendOtp(req , res , next) =>{
            ` <h3>Confirm Email</h3>
             <p>Here is your OTP : ${otp}</p>`
         );
-        console.log(mailRespose);
+        console.log(`Mail Response : ${mailRespose}`);
+
         // response status
         res.status(201).json({
             message : 'OTP sent successfully',
