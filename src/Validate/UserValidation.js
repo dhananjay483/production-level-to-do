@@ -22,7 +22,7 @@ export default class userValidations {
             console.log(`User Register validation error ${error.message}`);
             next(error);
         }
-    }
+    };
     // validation for user login
     validateLoginRequest = async(req,res,next) => {
         try {
@@ -36,7 +36,7 @@ export default class userValidations {
             console.log(`Failed to user login validation${error.message}`);
             next(error);
         }
-    }
+    };
     validateResetPasswordRequest = async(req,res,next) => {
        try {
         // password hashing
@@ -53,5 +53,5 @@ export default class userValidations {
         console.log(`Failed to validate update password ${error.message}`);
         next(error);
        }
-    }
+    };
 }
