@@ -39,7 +39,7 @@ export default async function sendOtp(req , res , next) =>{
 
         // response status
         res.status(201).json({
-            message : 'OTP sent successfully',
+            message : 'OTP sent successfully✅✅',
             success : true,
              otpBody
         });
