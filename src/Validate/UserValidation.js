@@ -1,5 +1,5 @@
-import {authSignupUserSchema , authLoginUserSchema} from '../Model/User.js';
-import bcrypt from 'bcrypt';
+import {authSignupUserSchema , authLoginUserSchema, updatePasswordSchema} from '../Model/User.js';
+import bcrypt from 'bcrypt'; // store hash format of password
 export default class userValidations {
     // validation for signup a new user
     validateSignupRequest = async(req,res,next) => {
@@ -37,5 +37,21 @@ export default class userValidations {
             next(error);
         }
     }
-    validate
+    validateResetPasswordRequest = async(req,res,next) => {
+       try {
+        // password hashing
+       req.body.password = await bcrypt.hash(req.body.password, 10);
+       // update password
+       const updatePassword = await updatePasswordSchema.validate(req.body,{
+        abortEarly : false,
+        stripUnknown : true
+       }) 
+       console.log('Change password successful✅✅', updatePassword);
+       next();
+
+       } catch (error) {
+        console.log(`Failed to validate update password ${error.message}`);
+        next(error);
+       }
+    }
 }
