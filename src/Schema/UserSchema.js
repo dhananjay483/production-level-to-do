@@ -1,6 +1,7 @@
 // here i want to add our validation for user model 
 import yup from 'yup';
 
+// here user register and verify through otp sending
 export const authSignupUserSchema = yup.object({
 
     username : yup
@@ -21,7 +22,13 @@ export const authSignupUserSchema = yup.object({
     role : yup
     .string('role is string type!!')
     .oneOf(['user','admin'], 'provide your role')
-    .required('role is required')
+    .required('role is required'),
+
+    otp : yup 
+    .string('otp type is string'),
+
+    isVerified : yup
+    .string('type should be string')
 
 });
 
@@ -37,6 +44,8 @@ export const authLoginUserSchema = yup.object({
     .required('please write a password which is register password'),
 
 });
+
+// when you want to update password through otp verification
 export const updatePasswordSchema = yup.object({
     
      email : yup 
@@ -47,5 +56,8 @@ export const updatePasswordSchema = yup.object({
     .string('password should be a string type')
     .min(8,'password length must be 8 character')
     .required('please write a password which is register password'),
+
+    otp : yup 
+    .string('otp type is string'),
 
 });
