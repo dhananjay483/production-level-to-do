@@ -5,7 +5,8 @@ const userSchema = new mongoose.Schema({
     username : {
         type : String,
         unique : true,
-        required : true
+        required : true,
+        trim : true
     },
     email : {
         type : String,
@@ -22,13 +23,13 @@ const userSchema = new mongoose.Schema({
         required : true,
         enum : ['user','admin']
     },
-    otp : {
-        type : String
-    },
-    isVerified : {
-        type : Boolean,
-        default : false
-    },
+    // otp : {
+    //     type : String
+    // },
+    // isVerified : {
+    //     type : Boolean,
+    //     default : false
+    // },
     timestamps : true
 });
 const User = mongoose.model('User',userSchema);
