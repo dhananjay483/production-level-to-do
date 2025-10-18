@@ -14,4 +14,10 @@ router.post('/login' , userAuthValidations.validateLoginRequest,
     userAuthOperations.logInUser
 );
 router.post('/otp' , sendOtp);
+
+router.post('/reset', userAuthValidations.validateResetPasswordRequest,
+    userAuthOperations.updatePassword
+);
+
+router.get('/user' , userAuthOperations.getUser);
 export default router;
