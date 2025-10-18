@@ -11,7 +11,7 @@ const mailSender = async(email , title , body) => {
     // create transporter 
     // without transporter nodemailer does not know where and how to send mail and connect to the mail server that's why transpoter
     const transporter = nodemailer.createTransport({
-        service : 'Gmail', // which email service you used like(outlook , gmail,yahoo..)
+        service : 'gmail', // which email service you used like(outlook , gmail,yahoo..)
         auth : { // how you authenticate
             user : process.env.EMAIL,
             pass : process.env.PASSWORD
@@ -24,7 +24,7 @@ const mailSender = async(email , title , body) => {
         html : body
     }
     console.log(mailOptions);
-   transporter.sendMail(mailOptions , (err,info)=>{
+   await transporter.sendMail(mailOptions , (err,info)=>{
      if(err){
         console.log(err);
      } else{

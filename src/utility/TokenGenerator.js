@@ -7,8 +7,7 @@
 3. then generate token*/
 
 import jwt from 'jsonwebtoken'
-import dotenv from 'dotenv'
-import { ref } from 'yup';
+import dotenv from 'dotenv';
 
 dotenv.config()
 
@@ -33,7 +32,7 @@ export default class TokenGenerator {
     try {
       const secretKey = process.env.REFRESH_TOKEN_SECRET;
       const expiry = process.env.REFRESH_TOKEN_EXPIRY;
-      // generate refresh token
+      // generate refresh
       const refreshToken = jwt.sign({ userId }, secretKey, {
         expiresIn: expiry,
       });

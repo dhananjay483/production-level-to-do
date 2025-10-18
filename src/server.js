@@ -5,6 +5,7 @@ import taskRoutes from './route/routes.js';
 import bodyParser from 'body-parser';
 import connectDB from './config/db.js'
 import errorHandler from './Error/ErrorHandler.js';
+import userRoutes from './route/UserRoutes.js';
 dotenv.config();
 
 const app = express();
@@ -29,6 +30,8 @@ app.get('/', (req, res) => {
 
 // define all Tasks route 
 app.use("/api/todos", taskRoutes);
+// define user api
+app.use('/auth' , userRoutes);
 
 app.listen(port, () => {
   console.log(` server is running on the port : ${port}`);

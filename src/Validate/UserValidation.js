@@ -1,4 +1,4 @@
-import {authSignupUserSchema , authLoginUserSchema, updatePasswordSchema} from '../Model/User.js';
+import {authSignupUserSchema , authLoginUserSchema, updatePasswordSchema} from '../Schema/UserSchema.js';
 import bcrypt from 'bcrypt'; // store hash format of password
 export default class userValidations {
     // validation for signup a new user
