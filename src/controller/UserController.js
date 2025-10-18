@@ -118,7 +118,8 @@ export default class userOperations {
     }
     // here i want to update my password
     updatePassword = async(req,res,next) => {
-        // fetched the user details during update password
+       try {
+         // fetched the user details during update password
         const {email , otp , newPassword} = req.body;
         if(!email){
             return res.status(400).json({
@@ -150,5 +151,9 @@ export default class userOperations {
             success : true,
             user : updateUser
         })
+       } catch (error) {
+        console.log(`Failed to update password ${error.message}`);
+        next(error);
+       }
     }
 }
