@@ -34,7 +34,7 @@ export default class TokenGenerator {
       const expiry = process.env.REFRESH_TOKEN_EXPIRY;
       // generate refresh
       const refreshToken = jwt.sign({ userId }, secretKey, {
-        expiresIn: expiry,
+        expiresIn: expiry, 
       });
         console.log(refreshToken);
         return refreshToken;
@@ -43,3 +43,4 @@ export default class TokenGenerator {
     }
   }
 }
+

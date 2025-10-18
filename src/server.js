@@ -6,7 +6,12 @@ import bodyParser from 'body-parser';
 import connectDB from './config/db.js'
 import errorHandler from './Error/ErrorHandler.js';
 import userRoutes from './route/UserRoutes.js';
+
+
+
+
 dotenv.config();
+
 
 const app = express();
 const port = process.env.PORT;
