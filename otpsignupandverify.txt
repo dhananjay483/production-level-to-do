@@ -56,3 +56,14 @@
 | "Account created" OR        |
 | "Password updated"          |
 +-----------------------------+
+
+
+otpResponse --->
+[
+  {
+    email: "dhananjay@gmail.com",
+    otp: "482913",
+    createdAt: "2025-10-18T09:33:00.000Z",
+    expiresAt: "2025-10-18T09:38:00.000Z"
+  }
+]
