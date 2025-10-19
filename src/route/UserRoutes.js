@@ -7,17 +7,24 @@ const router = express.Router();
 
 const userAuthOperations = new userOperations();
 const userAuthValidations = new userValidations();
+
 router.post('/signup' , userAuthValidations.validateSignupRequest,
     userAuthOperations.createUser
-);
+); // user registration
 router.post('/login' , userAuthValidations.validateLoginRequest,
     userAuthOperations.logInUser
-);
-router.post('/otp' , sendOtp);
+); // user login
+router.post('/otp' , sendOtp); // for otp generate
 
-router.post('/reset', userAuthValidations.validateResetPasswordRequest,
+router.put('/reset', userAuthValidations.validateResetPasswordRequest,
     userAuthOperations.updatePassword
+); // for reset password
+
+router.get('/user/:id' , userAuthValidations.validateUser ,
+    userAuthOperations.getUser); // get user details
+
+router.post('/refreshToken' , userAuthValidations.validateRefreshToken,
+    userAuthOperations.refreshToken
 );
 
-router.get('/user' , userAuthOperations.getUser);
 export default router;

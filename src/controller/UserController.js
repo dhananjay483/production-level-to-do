@@ -7,6 +7,8 @@ import OTP from '../Model/Otp.js';
 // when user login then generate an accessToken and refreshToken 
 
 export default class userOperations {
+
+
     // Account creation
     createUser = async (req, res, next) => {
         try {
@@ -64,6 +66,8 @@ export default class userOperations {
         }
 
     }
+
+
     // here we log in the registered User
     logInUser = async (req, res, next) => {
         try {
@@ -94,42 +98,51 @@ export default class userOperations {
             next(error);
         }
     }
+
+
     // here i want get the user details
     getUser = async(req,res,next) => {
        try {
          // fetch the user is
-        const userId = req.userId;
+        const userId = req.params.id;
         const user = await User.findById(userId);
+       console.log(user);
         if(!user){
             return res.status(400).json({
                 message : "User Not Found",
                 success : false
             });
         }
+        
         res.status(201).json({
             mesage : "User Details Fetched Successfully",
             success : true,
-            user
+             user
         });
        } catch (error) {
         console.log(`Failed to fetch user details ${error.mesage}`);
         next(error);
        }
     }
+
+
     // here i want to update my password
     updatePassword = async(req,res,next) => {
        try {
          // fetched the user details during update password
         const {email , otp , newPassword} = req.body;
-        if(!email){
+         if (!email || !newPassword || !otp) {
             return res.status(400).json({
-                message : "User Not Found",
-                success : false
+                message: "Email, OTP, and new password are required",
+                success: false
             });
         }
+
+
         // verify and get most recent sending otp via email
-        const otpResponse = await OTP.findByIdAndUpdate({email}).sort({createdAt : -1}).limit(1);
+        const otpResponse = await OTP.find({email}).sort({createdAt : -1}).limit(1);
         console.log(`Getting otp response ${otpResponse}`);
+
         // check the latest otp with store db otp
         if(otpResponse.length === 0 || otp !== otpResponse[0].otp){
             return res.status(400).json({
@@ -137,9 +150,11 @@ export default class userOperations {
                 success : false
             });
         }
+
+
         // if otp match then update my password
         const hashedpassword = await bcrypt.hash(newPassword , 10); // store into hash format
-        console.log(hashedpassword);
+        // console.log(hashedpassword);
         // update password and store new password and also update user
         const updateUser = await User.findOneAndUpdate(
             {email},
@@ -152,8 +167,27 @@ export default class userOperations {
             user : updateUser
         })
        } catch (error) {
-        console.log(`Failed to update password ${error.message}`);
+        console.log("failed to update password" , error);
         next(error);
        }
+    }
+    // get new refresh token
+    refreshToken = async(req,res,next) => {
+        try {
+            const userId = req.userId;
+        const tokenGenerator = new TokenGenerator();
+        const accessToken = tokenGenerator.accessTokenGenerator(userId);
+        const refreshToken = tokenGenerator.refreshTokenGenerator(userId); 
+
+        res.status(201).json({
+            message : "New Token Added",
+            success : true,
+            accessToken,
+            refreshToken,
+        });
+        } catch (error) {
+            console.log(`Failed to generate refresh token : ${error.message}`);
+            next(error);
+        }
     }
 }

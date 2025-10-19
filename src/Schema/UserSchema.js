@@ -51,10 +51,10 @@ export const updatePasswordSchema = yup.object({
      email : yup 
      .string('email should be a string type')
     .required('please write your registered eamil'),
-
-    password : yup 
+    // we add newpassword validation as because of that validation only done password but my controller use newPassword that's why match the fields
+   newPassword : yup 
     .string('password should be a string type')
-    .min(8,'password length must be 8 character')
+    .min(6,'password length must be 8 character')
     .required('please write a password which is register password'),
 
     otp : yup 

@@ -8,10 +8,7 @@ import errorHandler from './Error/ErrorHandler.js';
 import userRoutes from './route/UserRoutes.js';
 
 
-
-
 dotenv.config();
-
 
 const app = express();
 const port = process.env.PORT;
@@ -35,6 +32,7 @@ app.get('/', (req, res) => {
 
 // define all Tasks route 
 app.use("/api/todos", taskRoutes);
+
 // define user api
 app.use('/auth' , userRoutes);
 

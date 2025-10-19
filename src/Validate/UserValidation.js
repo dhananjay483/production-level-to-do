@@ -1,5 +1,9 @@
 import {authSignupUserSchema , authLoginUserSchema, updatePasswordSchema} from '../Schema/UserSchema.js';
 import bcrypt from 'bcrypt'; // store hash format of password
+import dotenv from 'dotenv';
+import jwt, { decode } from 'jsonwebtoken';
+
+dotenv.config();
 export default class userValidations {
     // validation for signup a new user
     validateSignupRequest = async(req,res,next) => {
@@ -39,8 +43,15 @@ export default class userValidations {
     };
     validateResetPasswordRequest = async(req,res,next) => {
        try {
-        // password hashing
-       req.body.password = await bcrypt.hash(req.body.password, 10);
+       const { email, otp, newPassword } = req.body;
+
+        // Check required fields
+        if (!email || !otp || !newPassword) {
+            return res.status(400).json({
+                message: "Email, OTP, and new password are required",
+                success: false
+            });
+        }
        // update password
        const updatePassword = await updatePasswordSchema.validate(req.body,{
         abortEarly : false,
@@ -54,4 +65,51 @@ export default class userValidations {
         next(error);
        }
     };
+    // validate access token
+    validateUser = async(req,res,next) => {
+        try {
+            
+            // get token from header
+            const authorization = req.headers.authorization;
+            if(!authorization) {
+                throw new Error('No Authorization header found');
+            }
+            const accessToken = authorization.split(" ")[1]; // get token and check
+            const payload = jwt.verify(accessToken , process.env.ACCESS_TOKEN_SECRET); // verify the payload information
+            req.userId = payload.id; // req that user which will we access
+            next();
+        } catch (error) {
+            console.log(`invalid or expired access token ${error.message}`);
+            next(error);
+        }
+    }
+    // validate refresh token
+    validateRefreshToken = async(req,res,next) =>{
+        // get the token from headers
+        try {
+        const refreshTokenSecret = process.env.REFRESH_TOKEN_SECRET;
+            // get token from header
+          const token = req.body.refreshToken;
+          if(!token){
+            return res.status(400).json({
+                message : "No Token Provided",
+                success : false
+            });
+          }
+          // if token have provide then verify token payload
+          jwt.verify(token , refreshTokenSecret , (err,decoded) =>{
+            if(err){
+                return res.status(400).json({
+                    message : "Invalid Token",
+                    success : false
+                });
+            }
+            req.user = decoded;
+            next();
+          })
+        } catch (error) {
+            console.log(`invalid or expired REFRESH token ${error.message}`);
+            next(error);
+        }
+    }
 }
