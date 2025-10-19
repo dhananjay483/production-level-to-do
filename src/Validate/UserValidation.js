@@ -1,7 +1,7 @@
 import {authSignupUserSchema , authLoginUserSchema, updatePasswordSchema} from '../Schema/UserSchema.js';
 import bcrypt from 'bcrypt'; // store hash format of password
 import dotenv from 'dotenv';
-import jwt, { decode } from 'jsonwebtoken';
+import jwt from 'jsonwebtoken';
 
 dotenv.config();
 export default class userValidations {

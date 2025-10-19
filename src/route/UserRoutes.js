@@ -11,9 +11,11 @@ const userAuthValidations = new userValidations();
 router.post('/signup' , userAuthValidations.validateSignupRequest,
     userAuthOperations.createUser
 ); // user registration
+
 router.post('/login' , userAuthValidations.validateLoginRequest,
     userAuthOperations.logInUser
 ); // user login
+
 router.post('/otp' , sendOtp); // for otp generate
 
 router.put('/reset', userAuthValidations.validateResetPasswordRequest,
